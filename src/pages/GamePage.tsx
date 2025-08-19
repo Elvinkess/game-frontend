@@ -2,7 +2,6 @@
 import { useEffect, useState,  } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import socket from "../api/websocket";
-import api from "../api/client";
 
 interface Player {
   userId: number;
@@ -21,7 +20,7 @@ export default function GamePage() {
   const [userId,setUserId]=useState<number>(0)
   const[errorMessage,setErrorMessage]= useState<string>("")
 
-  let handleExit = (e:any) =>{
+  let handleExit = () =>{
     //sessionID and userId
     socket.emit("player-left",({userId,sessionId}))
   }

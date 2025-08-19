@@ -121,7 +121,7 @@ return (
                 <p className="fs-5 mb-5">Total Loses: {user?.losses ?? 0}</p>
 
                 {/* Number picker (commented out as per your original code) */}
-                {/* <input
+                <input
                     type="number"
                     min={1}
                     max={9}
@@ -130,7 +130,7 @@ return (
                     className="form-control text-center w-auto mb-4" // Bootstrap classes for input
                     style={{ width: '6rem' }} // Custom width if needed
                     placeholder="Pick 1-9"
-                /> */}
+                />
 
                 {/* JOIN button styled to match the large black rectangle */}
                 {/* Bootstrap equivalent: btn, btn-dark (black background), fw-bold (font bold),
