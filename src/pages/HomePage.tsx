@@ -29,7 +29,8 @@ export default function HomePage() {
     
     }
   useEffect(() => {
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
+
     getUserdetails()
     // listen for active session
     socket.emit("get-active-session");
