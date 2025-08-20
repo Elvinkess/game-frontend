@@ -84,15 +84,15 @@ export default function LeaderboardPage() {
 
         {/*Display winners in session*/}
         <div className="Winners">
-        {winners.length > 0 && (
-          <div>
-            <h3>Winners:</h3>
-              <ul>
+          <h2 className="winner-board">Winners:</h2>
+          {winners.length > 0 ? (
+            <ul>
               {winners.map((w, i) => (
                 <li key={i}>{w.username}</li>
               ))}
             </ul>
-          </div>
+          ) : (
+            <p>No winners this round</p>
           )}
         </div>
       </div>

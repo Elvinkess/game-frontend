@@ -85,3 +85,7 @@
     margin-top: auto; /* Pushes this element to the bottom if the parent is flex-column */
 }
 
+.winner-board{
+    text-align: center;
+    color: #4CAF50;
+}
