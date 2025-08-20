@@ -2,6 +2,7 @@
 import { useEffect, useState,  } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import socket from "../api/websocket";
+import "../utils/GamePage.css"
 
 interface Player {
   userId: number;
@@ -23,6 +24,7 @@ export default function GamePage() {
   let handleExit = () =>{
     //sessionID and userId
     socket.emit("player-left",({userId,sessionId}))
+    navigate("/home");
   }
 
   useEffect(() => {
@@ -71,10 +73,10 @@ export default function GamePage() {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
+    <div className="Game_page">
+      {timeLeft !== null && <p>Time left: {timeLeft}s</p>}
       <h1 className="text-2xl font-bold">Game in Progress</h1>
       <p>You picked number: {pickedNumber}</p>
-      {timeLeft !== null && <p>Time left: {timeLeft}s</p>}
 
       <h2 className="text-lg font-semibold mt-4">Players in session:</h2>
       <ul>

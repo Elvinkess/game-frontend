@@ -1,0 +1,101 @@
+.Game_page {
+    background-color: #ffffff;
+    padding: 2.5rem;
+    border-radius: 12px; 
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1); 
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    gap: 1rem; 
+    margin: auto; 
+    text-align: center; 
+}
+
+
+.Game_page p:first-child { 
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #4a4a4a;
+    margin-bottom: 0.5rem;
+}
+
+.Game_page h1.text-2xl { 
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333; 
+    margin-bottom: 1rem; 
+}
+
+
+.Game_page p:nth-of-type(2) { 
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #007bff; 
+    margin-bottom: 1.5rem; 
+}
+
+
+.Game_page h2.text-lg { 
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #4a4a4a;
+    margin-top: 1.5rem; 
+    margin-bottom: 1rem; 
+}
+
+
+.Game_page ul {
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+    width: 80%; 
+    max-width: 400px; 
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; 
+    margin-bottom: 1.5rem; 
+}
+
+.Game_page ul li {
+    background-color: #f8f9fa;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    font-size: 1rem;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+    text-align: left;
+}
+
+
+.Game_page button {
+    padding: 0.8rem 1.8rem;
+    background-color: #dc3545;
+    color: #ffffff; 
+    font-size: 1.1rem; 
+    font-weight: 600; 
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
+}
+
+.Game_page button:hover {
+    background-color: #c82333; 
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3); 
+}
+
+.Game_page button:active {
+    background-color: #bd2130; 
+}
+
+
+.Game_page p.errorMessage {
+    color: #dc3545;
+    font-size: 1rem;
+    margin-top: 1rem;
+    font-weight: 500;
+}
