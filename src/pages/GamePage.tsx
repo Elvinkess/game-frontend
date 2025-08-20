@@ -73,7 +73,7 @@ export default function GamePage() {
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-4">
       <h1 className="text-2xl font-bold">Game in Progress</h1>
-      <p>Your picked number: {pickedNumber}</p>
+      <p>You picked number: {pickedNumber}</p>
       {timeLeft !== null && <p>Time left: {timeLeft}s</p>}
 
       <h2 className="text-lg font-semibold mt-4">Players in session:</h2>

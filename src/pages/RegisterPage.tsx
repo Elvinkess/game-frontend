@@ -1,8 +1,9 @@
 // src/pages/RegisterPage.tsx
 import { useState } from "react";
 import api from "../api/client";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../utils/Registerpage.css"
 
 export default function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -20,7 +21,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
+    <div className="create_account">
       <h1 className="text-2xl font-bold">Create Account</h1>
       <input
         type="text"
@@ -38,7 +39,7 @@ export default function RegisterPage() {
           onClick={() => navigate("/login")}
           className="text-blue-500 cursor-pointer"
         >
-          Login
+          <Link to="/login">Login</Link>
         </span>
       </p>
     </div>

@@ -13,7 +13,7 @@ interface Payload {
   sessionId: number;
   winningNumber: number;
   winners:PlayerNames [];
-  players: any[]; // refine type if you know it
+  players: any[];
 }
 
 const getAllActivePlayersInSession = async (sessionId:number):Promise<PlayerNames[]> => {
@@ -30,7 +30,6 @@ const getAllActivePlayersInSession = async (sessionId:number):Promise<PlayerName
 export default function LeaderboardPage() {
 
   const location = useLocation();
-  // const [topPlayers, setTopPlayers] = useState<Player[]>([]);
   const[activePlayers,setActivePlayers] = useState<PlayerNames[]>([]) //player in each session
   const { sessionId, winningNumber, winners } = location.state as Payload;
   console.log(sessionId,"session ID")
@@ -96,21 +95,6 @@ export default function LeaderboardPage() {
           )}
         </div>
       </div>
-      
-        
-    {/* Display Top players once clicked */}
-      {/* <button onClick={fetchLeaderboard}>Get Top Players</button> */}
-
-      {/* {topPlayers.length > 0 && (
-        <ul className="space-y-2">
-          {topPlayers.map((p, i) => (
-            <li key={i} className="flex justify-between border p-2 rounded">
-              <span>{p.username}</span>
-              <span>{p.wins} wins</span>
-            </li>
-          ))}
-        </ul>
-      )} */}
 
 
     </div>

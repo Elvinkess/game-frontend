@@ -3,15 +3,23 @@ import { Link, useNavigate } from "react-router-dom";
 import socket from "../api/websocket";
 import { getUserIdFromToken } from "../utils/auth";
 import api from "../api/client";
+import "../utils/HomePage.css"
+
 export interface IUser{
     username:string,
     wins:number,
     losses:number
 }
+
+interface PlayerNames{
+  username:string
+  wins:number
+}
 export default function HomePage() {
   const [pickedNumber, setPickedNumber] = useState<number | null>(null);
   const [message, setMessage] = useState("");
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
+  const[topPlayers,setTopPlayers]= useState<PlayerNames[]>([])
   const navigate = useNavigate();
   const[user,setUser]= useState<IUser | null>(null)
  const [authError,setAuthError]= useState<string>("")
@@ -28,6 +36,12 @@ export default function HomePage() {
         }
     
     }
+
+    //Fetch top 10 players from backend
+  const fetchLeaderboard = async () => {
+    const { data } = await api.get("/user/top-players");
+    setTopPlayers(data);
+  };
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout>;
 
@@ -102,12 +116,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col items-center justify-center h-screen gap-4">
         {
-            !user && authError ? <div>Pls authenticate and sign in <Link to="/login">Here</Link></div> :<>
-
+          !user && authError ? <div>Pls authenticate and sign in <Link to="/login">Here</Link></div> :
        
-        <div className="d-flex flex-column min-vh-100 bg-light-subtle position-relative">
-            {/* Bootstrap equivalent: position-absolute, top-0, end-0 (right-0), pt-4, pe-4 (padding top/end) */}
-            <div className="position-absolute top-0 end-0 p-4 fs-4 fw-bold">
+       <>
+          <div className="Home_page_main">
+            <div className="user_name">
                 Hi {user?.username}
             </div>
               <div className="flex_homepage">
@@ -121,13 +134,13 @@ export default function HomePage() {
                       max={9}
                       value={pickedNumber ?? ""}
                       onChange={(e) => setPickedNumber(Number(e.target.value))}
-                      className="custom-number-input" 
+                      className="picker" 
                       placeholder="Pick 1-9"
                   />
 
                   <button
                       onClick={joinSession}
-                      className="btn btn-dark fw-bold py-5 px-5 fs-4 rounded-3 shadow"
+                      className="join_button"
                       style={{ minWidth: '15rem' }} // Ensure it's wide enough
                   >JOIN</button>
 
@@ -139,20 +152,32 @@ export default function HomePage() {
                   
                   {message && <p className="mt-4 text-secondary">{message}</p>}
             </div>
-              </div>
-          
+          </div>
+                  {/* Display Top players once clicked */}
+      { <button onClick={fetchLeaderboard}>Get Top Players</button> }
+
+        {topPlayers.length > 0 && (
+          <ul className="space-y-2">
+            {topPlayers.map((p, i) => (
+              <li key={i} className="toppers">
+                <span>{p.username }</span>
+                <span>{  p.wins } wins</span>
+              </li>
+            ))}
+          </ul>
+        )}
         </div>
-    );
+    
                     </>
                 }
+   
                 
-            </div>
+    </div>
   );
 }
 
 
-// Fetch top 10 players from backend
-  // const fetchLeaderboard = async () => {
-  //   const { data } = await api.get("/user/top-players");
-  //   setTopPlayers(data);
-  // };
+
+
+
+  

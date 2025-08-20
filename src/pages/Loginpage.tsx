@@ -3,6 +3,7 @@ import { useState } from "react";
 import api from "../api/client";
 import { useNavigate,Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import "../utils/LoginPage.css"
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -22,7 +23,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-4">
+    <div className="main_login">
       <h1 className="text-2xl font-bold">Login</h1>
       <input
         type="text"
