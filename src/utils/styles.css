@@ -1,0 +1,87 @@
+.main_section {
+    display: flex; /* Enables flexbox for columns */
+    border-radius: 8px; /* Slightly rounded corners for the entire section */
+    overflow: hidden; /* Ensures inner elements respect border-radius */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    width: 100vw;   
+    height: 100vh;
+}
+
+.main_section > div {
+    flex: 1; /* Each column takes equal flexible space */
+    padding: 2rem; /* Padding inside each column */
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content horizontally within the column */
+}
+.Player_session{
+    text-align: center;
+}
+
+.main_section > div:nth-child(1), /* Active Players column */
+.main_section > div:nth-child(3) { /* Winners column */
+    background-color: #A9A9A9; /* Darker gray background */
+    color: #333; /* Darker text color for contrast */
+}
+.main_section > div:nth-child(2) { /* Result column */
+    background-color: #D3D3D3; /* Lighter gray background */
+    color: #333; /* Darker text color */
+    justify-content: center; /* Center content vertically within the column */
+    gap: 1rem; /* Space between flex items (like "RESULT", number, "total players" etc.) */
+    text-align: center; /* Ensure text is centered horizontally */
+}
+
+.main_section > div:nth-child(1) h1, /* Targets the h1 in the first column */
+.Winners h3 { /* Targets the h3 in the Winners div */
+    color: #4CAF50; /* Green color from the screenshot */
+    font-size: 1.5rem; /* Equivalent to Tailwind's text-2xl (24px) */
+    font-weight: bold; /* Bold font weight */
+    margin-bottom: 1rem; /* Spacing below the header, equivalent to Tailwind's mb-4 (16px) */
+    align-self: flex-start; /* Align content to the left within their column */
+}
+
+.main_section ul {
+    list-style: none; /* Remove default bullet points */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    width: 100%; /* Make list take full width of its parent column */
+    text-align: left; /* Align list items to the left */
+}
+
+.main_section ul li {
+    /* These styles replicate the `flex justify-between border p-2 rounded` from your HTML */
+    display: flex;
+    justify-content: space-between; /* Distributes space between content (if any) */
+    align-items: center; /* Vertically align content */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Light border */
+    padding: 0.5rem; /* Padding around content */
+    border-radius: 0.25rem; /* Slightly rounded corners */
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly lighter background for list items */
+    color: #333; /* Text color for list items */
+    font-size: 1.1rem; /* Font size for usernames */
+    margin-bottom: 0.5rem; /* Space between list items, replicating space-y-2 */
+}
+
+.main_section ul li:last-child {
+    margin-bottom: 0; /* No margin after the last list item */
+}
+
+/* Middle section specific text styles ("RESULT" and the number) */
+.main_section > div:nth-child(2) span { /* Targets the "RESULT" text */
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.main_section > div:nth-child(2) h3 { /* Targets the winning number */
+    font-size: 4rem; /* Large font size for the number */
+    font-weight: bold;
+    margin: 0.5rem 0 1rem 0; /* Spacing around the number */
+}
+
+.new-session-message {
+    color: #FF0000; /* Red color as seen in the screenshot */
+    font-size: 1.1rem;
+    margin-top: auto; /* Pushes this element to the bottom if the parent is flex-column */
+}
+

@@ -1,82 +1,125 @@
 import { useEffect, useState } from "react";
 import api from "../api/client";
 import socket from "../api/websocket";
+import { useLocation } from "react-router-dom";
+import "../utils/styles.css"
 
-interface Player {
-  username: string;
-  wins: number;
+
+interface PlayerNames{
+  username:string
 }
 
-export default function LeaderboardPage() {
-  const [players, setPlayers] = useState<Player[]>([]);
+interface Payload {
+  sessionId: number;
+  winningNumber: number;
+  winners:PlayerNames [];
+  players: any[]; // refine type if you know it
+}
 
-  // Fetch top 10 players from backend
-  const fetchLeaderboard = async () => {
-    const { data } = await api.get("/user/top-players");
-    setPlayers(data);
-  };
+const getAllActivePlayersInSession = async (sessionId:number):Promise<PlayerNames[]> => {
+  try {
+    const { data } = await api.get(`session_players/active_players/${sessionId}`);
+    console.log(data,"active players in session from getAllActivePlayer")
+    return data 
+  } catch (error) {
+    console.error("Error fetching players:", error);
+    return []
+  }
+};
+
+export default function LeaderboardPage() {
+
+  const location = useLocation();
+  // const [topPlayers, setTopPlayers] = useState<Player[]>([]);
+  const[activePlayers,setActivePlayers] = useState<PlayerNames[]>([]) //player in each session
+  const { sessionId, winningNumber, winners } = location.state as Payload;
+  console.log(sessionId,"session ID")
+
+  
+ 
+  if (!sessionId) {
+    return <p>No session ID found.</p>;
+  }
+
 
   useEffect(() => {
     // Initial fetch
-    fetchLeaderboard();
 
-    // Listen for session winners
-    socket.on(
-      "session:closed",
-      (payload: {
-        sessionId: number;
-        winningNumber: number;
-        winners: { username: string; pickedNumber: number; isWinner: boolean }[];
-        players:[]
-      }) => {
-        console.log(payload.players,"these are the players")
-        console.log(payload)
+    const fetchPlayers = async () => {
+      const players = await getAllActivePlayersInSession(sessionId);
+      setActivePlayers(players)
+    };
 
-        const winnersFromPayload = payload.winners.map((w) => ({
-          username: w.username,
-          wins: 1, // optionally you can merge with actual wins if available
-        }));
-
-        // Merge winners with existing leaderboard
-        setPlayers((prev) => {
-          const updatedMap: Record<string, Player> = {};
-
-          // Add existing players
-          prev.forEach((p) => {
-            updatedMap[p.username] = { ...p };
-          });
-
-          // Add or update winners
-          winnersFromPayload.forEach((w) => {
-            if (updatedMap[w.username]) {
-              updatedMap[w.username].wins += w.wins; // increment wins
-            } else {
-              updatedMap[w.username] = { ...w };
-            }
-          });
-
-          // Convert map back to sorted array by wins descending
-          return Object.values(updatedMap).sort((a, b) => b.wins - a.wins).slice(0, 10);
-        });
-      }
-    );
-
+    fetchPlayers();
     return () => {
       socket.off("session:closed");
     };
   }, []);
 
+ 
+
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Leaderboard</h1>
-      <ul className="space-y-2">
-        {players.map((p, i) => (
-          <li key={i} className="flex justify-between border p-2 rounded">
-            <span>{p.username}</span>
-            <span>{p.wins} wins</span>
-          </li>
-        ))}
-      </ul>
+      <div className="main_section">
+
+        {/*Display players in session*/}
+        <div>
+          <h2 className="Player_session">Active Players in Session</h2>
+          <ul className="space-y-2">
+            {activePlayers.map((p, i) => (
+              <li key={i} >
+                <span>{p.username  }</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+       
+
+        <div>
+          <span>RESULT</span>
+          <h3>{winningNumber}</h3>
+          <p>Total Players: {activePlayers.length}</p>
+          <p>Total wins: {winners.length}</p>
+        </div>
+
+        {/*Display winners in session*/}
+        <div className="Winners">
+        {winners.length > 0 && (
+          <div>
+            <h3>Winners:</h3>
+              <ul>
+              {winners.map((w, i) => (
+                <li key={i}>{w.username}</li>
+              ))}
+            </ul>
+          </div>
+          )}
+        </div>
+      </div>
+      
+        
+    {/* Display Top players once clicked */}
+      {/* <button onClick={fetchLeaderboard}>Get Top Players</button> */}
+
+      {/* {topPlayers.length > 0 && (
+        <ul className="space-y-2">
+          {topPlayers.map((p, i) => (
+            <li key={i} className="flex justify-between border p-2 rounded">
+              <span>{p.username}</span>
+              <span>{p.wins} wins</span>
+            </li>
+          ))}
+        </ul>
+      )} */}
+
+
     </div>
   );
 }
+
+
+
+
+
+   
+    

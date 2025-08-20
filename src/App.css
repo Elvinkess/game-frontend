@@ -40,3 +40,65 @@
 .read-the-docs {
   color: #888;
 }
+.flex_homepage{
+  display: flex;               
+  justify-content: center;     
+  align-items: center;         
+  height: 100vh;               
+  background-color: #f0f0f0;
+  margin-top: 20px;
+}
+.custom-number-input {
+  width: 200px;           /* wider */
+  height: 50px;           /* taller for visibility */
+  font-size: 1.5rem;      /* bigger text */
+  text-align: center;     /* keep numbers centered */
+  border: 2px solid #007bff;  /* blue border */
+  border-radius: 8px;     /* smooth corners */
+  outline: none;          /* remove default outline */
+  transition: all 0.2s ease-in-out;
+  color:red
+}
+
+.custom-number-input:focus {
+  border-color: #0056b3;   /* darker blue when focused */
+  box-shadow: 0 0 6px rgba(0, 123, 255, 0.6);
+}
+
+
+.main_section {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* take full screen height */
+}
+
+.main_section > div {
+  flex: 1; /* each child takes equal height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ddd; /* optional divider */
+  padding: 1rem;
+}
+
+/* Last section shouldn't have a border */
+.main_section > div:last-child {
+  border-bottom: none;
+}
+
+.Winners ul, 
+.main_section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.Winners li,
+.main_section li {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  text-align: center;
+}

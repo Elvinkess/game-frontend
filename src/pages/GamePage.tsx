@@ -56,10 +56,10 @@ export default function GamePage() {
     
     )
 
-    socket.on("session:closed", () => {
+    socket.on("session:closed", (payload: { sessionId: number;winningNumber: number; winners: { username: string; pickedNumber: number; isWinner: boolean }[]; players:[]}) => {
         setTimeLeft(null)
-
-        navigate("/leaderboard")
+        console.log("sending session ID",payload.sessionId)
+        navigate("/leaderboard", { state: payload });
     }
     );
 
