@@ -144,7 +144,7 @@ export default function HomePage() {
                       style={{ minWidth: '15rem' }} // Ensure it's wide enough
                   >JOIN</button>
 
-                  {timeLeft !== null ? (
+                  {timeLeft !== null && timeLeft > 0 ? (
                       <p className="mt-5 text-danger fs-5">There is an active session, you can join in : {timeLeft}s</p>
                   ) : (
                       <p className="mt-5 text-secondary fs-5">No active session</p>

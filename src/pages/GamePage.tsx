@@ -20,10 +20,13 @@ export default function GamePage() {
   const [sessionId,setSessionId]= useState<number>(0)
   const [userId,setUserId]=useState<number>(0)
   const[errorMessage,setErrorMessage]= useState<string>("")
+  const[isExit,setIsExit]=useState<boolean>(false)
 
   let handleExit = () =>{
     //sessionID and userId
     socket.emit("player-left",({userId,sessionId}))
+    setIsExit(true)
+    socket.off("session:closed");
     navigate("/home");
   }
 
@@ -57,13 +60,15 @@ export default function GamePage() {
     }
     
     )
-
-    socket.on("session:closed", (payload: { sessionId: number;winningNumber: number; winners: { username: string; pickedNumber: number; isWinner: boolean }[]; players:[]}) => {
+    if(!isExit){
+      socket.on("session:closed", (payload: { sessionId: number;winningNumber: number; winners: { username: string; pickedNumber: number; isWinner: boolean }[]; players:[]}) => {
         setTimeLeft(null)
         console.log("sending session ID",payload.sessionId)
         navigate("/leaderboard", { state: payload });
     }
     );
+    }
+  
 
     return () => {
       socket.off("session:joined");
